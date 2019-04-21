@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--<style>
+      body { /* parent */
+          background-color: rgba(0, 41, 59, 1); margin: 0;
+          width: 100%; height: auto;
+      }
+      .element { /* body */
+          float: left;
+          width: 25%;
+          height: 65%;
+          padding-top: 5%; padding-right: 1%; padding-left: 1%;
+          padding-bottom: 5%;
+          margin-top: 2.5%; margin-right: 0%; margin-left: 15%;
+          margin-bottom: 2%;
+          background-color: rgba(1, 255, 217, 0.3);
+          border-style: solid; border-left-width: 2px;
+          border-right-width: 2px; border-top-width: 0px;
+          border-bottom-width: 0px;
+          border-radius: 1px; border-color: rgba(1, 255, 255, 1);
+      }
+      .element p { /* element */
+          width: 100%;
+          height: auto;
+          font: 5vw Open, sans-serif;
+          text-align: center;
+          color: rgba(0, 230, 255, 1);
+      }
+
+    </style> -->
+    <link rel="stylesheet" media="all" type="text/css" href="{%static 'polls/style.css' %}" />
+    <title>WEB SITE</title>
+</head>
+<body>
+    <div class="element">
+      <p id="image1"></p>
+    </div>
+    <div class="element">
+        <p id="image2"></p>
+    </div>
+
+    <div class="element">
+      <form action="{% url 'imageSubmit' %}" method="get">
+      <input type="file" onchange="readURL(this,'image1');" id="myFile" name="p">
+      <input type="file" onchange="readURL(this,'image2');" id="myFile2" name="q">
+      <input type="submit" onClick="myFunction('myFile2','image2');myFunction(myFile,'image1')" value="imageSubmit">
+      <script>
+        function readURL(input,image) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#'+image)
+                            .attr('src', e.target.result)
+                            .width(150)
+                            .height(150);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+    function myFunction(idnum,imagenum) {
+          var x = document.getElementById(idnum).files[0].name;
+          document.getElementById(imagenum).innerHTML = x;
+          console.log(x);
+          //x.disabled = true;
+        }
+      </script>
+
+     </form>
+    </div>
+
+   <!--div class="element">
+     <form action="{% url 'imageSubmit' %}" method="get"-->
+
+
+
+
+
+   <!--/form>
+
+    </div>
+
+
+
+
+  <!--
+    <div class="element">
+        <p>Apps</p>
+    </div>-->
+</body>
+</html>
