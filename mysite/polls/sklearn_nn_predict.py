@@ -63,5 +63,5 @@ def predict_test_data(test_img1,test_img2):
     test_x.append([score]+[rmse]+im1+im2)
     predicted_res = loaded_model.predict(test_x)
     print(predicted_res)
-
-predict_test_data('data/test/066/08_066.png','data/test/066_forg/03_0101066.PNG')
+    return predicted_res
+#predict_test_data('data/test/066/08_066.png','data/test/066_forg/03_0101066.PNG')

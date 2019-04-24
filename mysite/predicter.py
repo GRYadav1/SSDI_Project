@@ -1,14 +1,8 @@
-from django.shortcuts import render
-
-from django.http import HttpResponse
-from django.template import loader
-from sklearn_nn import train_model,test_Model
-from sklearn_nn_predict import predict_test_data
 import numpy as np
 import pandas as pd
 import cv2
 import matplotlib.pyplot as plt
-import pickle
+
 import tensorflow as tf
 from tensorflow import keras
 from keras.layers import Input, Conv2D, MaxPooling2D, UpSampling2D, Lambda, merge, Dense, Flatten
@@ -19,11 +13,9 @@ from keras.datasets import mnist
 from keras.callbacks import TensorBoard
 from keras import backend as K
 
-pathOrig ="E:/Chrome-Downloads/NewProject/mysite/data/test/050/"
-pathForg= "E:/Chrome-Downloads/NewProject/mysite/data/test/050_forg/"
-
 input_img = Input(shape=(28, 28, 1))  # adapt this if using `channels_first` image data format
-
+pathOrig ="E:/Chrome-Downloads/NewProject/mysite/data/test/050/"
+pathForg= "E:\\Chrome-Downloads\\NewProject\\mysite\\data\\test\\050_forg\\"
 print("First imput_image:",input_img.shape)
 
 x = Conv2D(16, (3, 3), activation='relu', padding='same')(input_img)
@@ -97,31 +89,4 @@ def predict_result(im1, im2):
     return result
 
 
-predict_result( pathOrig+'01_050.png', pathForg+'02_0126050.png')
-
-def index(request):
-    print("Before Call!!!")
-    template = loader.get_template('polls/index.html')
-    print("Hi index")
-    #global clf
-    #clf = train_model();
-    return HttpResponse(template.render({}, request))
-
-def imageSubmit(request):
-    print("Hi imageSubmit")
-    if 'q' in request.GET:
-        pathString1=pathOrig+request.GET['p']
-        pathString2= pathForg+request.GET['q']
-        #print("Print Paths:\n",pathString1,pathString2);
-        #global clf
-        #message=test_Model(pathString1,pathString2,clf)
-
-        message = predict_result(pathString1,pathString2)
-        #message=predict_test_data(pathString1,pathString2)
-        print("Final Score :",message)
-
-        #pathString+=request.GET['q']
-    else:
-        message = 'You know nothing, Jon Snow!'
-        print(message)
-    return HttpResponse(message)
+predict_result( pathOrig+'01_050.png', pathForg+'01_0125050.png')

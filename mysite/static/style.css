@@ -1,6 +1,7 @@
 body { /* parent */
     background-color: rgba(0, 41, 59, 1); margin: 0;
     width: 100%; height: auto;
+    background-image: url("http://blog.hostbaby.com/wp-content/uploads/2013/07/circles1920x1234.jpg");
 }
 .element { /* body */
     float: left;

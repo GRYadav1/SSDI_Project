@@ -1,24 +1,14 @@
-
-# coding: utf-8
-
-# In[11]:
-
-
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 import pandas as pd
-
 from skimage.measure import compare_ssim
-#from skimage.measure import structural_similarity as ssim
 from sklearn.neural_network import MLPClassifier
 
 import imagehash
 from PIL import Image
 import pickle
 
-
-# In[12]:
 def test_Model(test_img1,test_img2,clf):
 
     '''test_img1 = "data/test/066/08_066.png"'''
