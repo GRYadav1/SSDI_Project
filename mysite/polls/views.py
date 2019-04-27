@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.template import loader
 from sklearn_nn import train_model,test_Model
 from sklearn_nn_predict import predict_test_data
+import os
 import numpy as np
 import pandas as pd
 import cv2
@@ -19,8 +20,8 @@ from keras.datasets import mnist
 from keras.callbacks import TensorBoard
 from keras import backend as K
 
-pathOrig ="E:/Chrome-Downloads/NewProject/mysite/data/test/050/"
-pathForg= "E:/Chrome-Downloads/NewProject/mysite/data/test/050_forg/"
+pathOrig ="data/test/050/"
+pathForg= "data/test/050_forg/"
 
 input_img = Input(shape=(28, 28, 1))  # adapt this if using `channels_first` image data format
 
@@ -110,8 +111,8 @@ def index(request):
 def imageSubmit(request):
     print("Hi imageSubmit")
     if 'q' in request.GET:
-        pathString1=pathOrig+request.GET['p']
-        pathString2= pathForg+request.GET['q']
+        pathString1=os.path.join(os.path.abspath(pathOrig),request.GET['p'])
+        pathString2= os.path.join(os.path.abspath(pathForg),request.GET['q'])
         #print("Print Paths:\n",pathString1,pathString2);
         #global clf
         #message=test_Model(pathString1,pathString2,clf)
