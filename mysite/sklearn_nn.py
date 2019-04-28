@@ -5,7 +5,6 @@ import pandas as pd
 from skimage.measure import compare_ssim
 from sklearn.neural_network import MLPClassifier
 
-import imagehash
 from PIL import Image
 import pickle
 

@@ -36,30 +36,34 @@
 
     </style> -->
     <link rel="stylesheet" media="all" type="text/css" href="{%static 'polls/style.css' %}" />
-    <title>WEB SITE</title>
+    <title>Signature Verification System</title>
 </head>
 <body style="background-color: #eee !important;">
-    <header id="home" style="background-position: center; background-size: cover;min-height: 75%; position: relative; filter: grayscale(50%);">
+    <header id="home" style="height=18%; background-position: left; position: absolute; filter: grayscale(50%); width:100%">
       <div style="background-color: #4d636f !important; width: 100%">
-          <div style="position: relative; left: 5%">
+          <div style="position: relative;">
             <span style="font-size: 50px; color: #fff!important; ">
-              Signature Verification System
+            &nbsp; &nbsp; Signature Verification System
             </span>
           </div>
       </div>
     </header>
-    <div class="element" style="height: 100px; position: absolute; left: 13%;">
-      <img id="image1" style="display: block; vertical-align: middle; margin-left: auto; margin-right: auto;">
+    <!--div style="position: absolute; top:20%; height:20%">-->
+    <div class="element" style="position: absolute; top:2%; left: 13%;">
+      <img id="image1" style="display: block; position: relative; vertical-align: middle; margin-left: auto; margin-right: auto; width:100%">
     </div>
-    <div class="element" style="height: 100px; position: relative; left: 62%;">
-        <img id="image2" style="display: block; margin-left: auto; margin-right: auto;">
+    <div class="element" style="top:2%; left: 62%;">
+        <img id="image2" style="display: block; position: relative; vertical-align: middle; margin-left: auto; margin-right: auto;">
     </div>
-    <form action="{% url 'imageSubmit' %}" method="get" style="position: absolute; top: 50%; width: 100%">
-    <label for="origImag" style="position:relative; left: 20%; top: -5px; display: block; font: 1rem 'Fira Sans', sans-serif; font-size: 1em;">Select original Signature</label>
-    <input type="file" id="origImag" onchange="readURL(this,'image1');" id="myFile" name="p" style="position: relative; left:20%">
-    <input type="submit" onClick="return validateAndSubmit('origImag','image1','testImag','image2');" value="Verify Signature" style="position: absolute; left: 44%; top: 300%; width: 15em; height: 8em;">
-    <label for="testImag" style="position:absolute; left: 70%; top: -5px; display: block; font: 1rem 'Fira Sans', sans-serif; font-size: 1em;">Select Test Signature</label>
-    <input type="file" id="testImag" onchange="readURL(this,'image2');" id="myFile2" name="q" style="position: relative; left: 53%" >
+
+    <div style="position: absolute; top: 50%; width: 100%!important; height: 40%">
+        <form action="{% url 'imageSubmit' %}" method="get">
+        <label for="origImag" style="position:absolute; left: 20%; top: 5px; display: block; font: 1rem 'Fira Sans', sans-serif; font-size: 1em;">Select Original Signature</label>
+        <input type="file" id="origImag" onchange="readURL(this,'image1');" id="myFile" name="p" style="position: absolute; left:20%; top: 20%">
+        <input type="submit" onClick="return validateAndSubmit('origImag','image1','testImag','image2');" value="Verify Signature" style="position: absolute; left: 44%; top: 70%; width: 15em; height: 4em;">
+        <label for="testImag" style="position:absolute; left: 68%; top: 5px; display: block; font: 1rem 'Fira Sans', sans-serif; font-size: 1em;">Select Test Signature</label>
+        <input type="file" id="testImag" onchange="readURL(this,'image2');" id="myFile2" name="q" style="position: absolute; left:68%; top: 20%" >
+    </div>
     <script>
       function validateAndSubmit(idnum1,imagenum1,idnum2,imagenum2){
         if(document.getElementById(idnum1).files[0]!==undefined && document.getElementById(idnum2).files[0]!==undefined){
@@ -92,8 +96,8 @@
                     console.log(image);
                       $('#'+image)
                           .attr('src', e.target.result)
-                          .width(300)
-                          .height(150);
+                          .width('100%')
+                          .height('100%');
                   };
 
                   reader.readAsDataURL(input.files[0]);
@@ -103,7 +107,6 @@
     </script>
 
    </form>
-
    <!--div class="element">
      <form action="{% url 'imageSubmit' %}" method="get"-->
 

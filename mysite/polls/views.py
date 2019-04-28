@@ -101,29 +101,38 @@ def predict_result(im1, im2):
 predict_result( pathOrig+'01_050.png', pathForg+'02_0126050.png')
 
 def index(request):
-    print("Before Call!!!")
     template = loader.get_template('polls/index.html')
-    print("Hi index")
     #global clf
     #clf = train_model();
     return HttpResponse(template.render({}, request))
 
 def imageSubmit(request):
-    print("Hi imageSubmit")
     if 'q' in request.GET:
         pathString1=os.path.join(os.path.abspath(pathOrig),request.GET['p'])
-        print("-------->"+request.GET['p'])
+        if os.path.exists(pathString1):
+            print("Selected image 1 path is valid.")
+        else:
+            print("Selected image 1 path is invalid.")
+            template=loader.get_template('polls/invalid.html')
+            return HttpResponse(template.render({}, request))
         pathString2= os.path.join(os.path.abspath(pathForg),request.GET['q'])
-        #print("Print Paths:\n",pathString1,pathString2);
-        #global clf
-        #message=test_Model(pathString1,pathString2,clf)
-
+        if os.path.exists(pathString2):
+            print("Selected image 2 path is valid.")
+        else:
+            print("Selected image 2 path is invalid.")
+            template=loader.get_template('polls/invalid.html')
+            return HttpResponse(template.render({}, request))
+        print("String2 is ",":",pathString2)
         message = predict_result(pathString1,pathString2)
-        #message=predict_test_data(pathString1,pathString2)
+        if message == "Forged":
+            template=loader.get_template('polls/forged.html')
+            return HttpResponse(template.render({}, request))
+        else:
+            template=loader.get_template('polls/genuine.html')
+            return HttpResponse(template.render({}, request))
         print("Final Score :",message)
 
-        #pathString+=request.GET['q']
     else:
-        message = 'You know nothing, Jon Snow!'
+        message = 'Something went wrong.'
         print(message)
     return HttpResponse(message)
