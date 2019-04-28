@@ -38,47 +38,71 @@
     <link rel="stylesheet" media="all" type="text/css" href="{%static 'polls/style.css' %}" />
     <title>WEB SITE</title>
 </head>
-<body>
-    <div class="element" style="height: 100px">
+<body style="background-color: #eee !important;">
+    <header id="home" style="background-position: center; background-size: cover;min-height: 75%; position: relative; filter: grayscale(50%);">
+      <div style="background-color: #4d636f !important; width: 100%">
+          <div style="position: relative; left: 5%">
+            <span style="font-size: 50px; color: #fff!important; ">
+              Signature Verification System
+            </span>
+          </div>
+      </div>
+    </header>
+    <div class="element" style="height: 100px; position: absolute; left: 13%;">
       <img id="image1" style="display: block; vertical-align: middle; margin-left: auto; margin-right: auto;">
     </div>
-    <div class="element" style="height: 100px">
+    <div class="element" style="height: 100px; position: relative; left: 62%;">
         <img id="image2" style="display: block; margin-left: auto; margin-right: auto;">
     </div>
-
-    <div class="element" style="position: absolute; top: 50%; height: 100px">
-      <form action="{% url 'imageSubmit' %}" method="get">
-      <input type="file" onchange="readURL(this,'image1');" id="myFile" name="p">
-      <input type="file" onchange="readURL(this,'image2');" id="myFile2" name="q">
-      <input type="submit" onClick="myFunction('myFile2','image2');myFunction(myFile,'image1')" value="imageSubmit">
-      <script>
-        function readURL(input,image) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                      console.log(e);
-                      console.log(image);
-                        $('#'+image)
-                            .attr('src', e.target.result)
-                            .width(300)
-                            .height(150);
-                    };
-
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-
-    function myFunction(idnum,imagenum) {
-          var x = document.getElementById(idnum).files[0].name;
-          document.getElementById(imagenum).innerHTML = x;
+    <form action="{% url 'imageSubmit' %}" method="get" style="position: absolute; top: 50%; width: 100%">
+    <label for="origImag" style="position:relative; left: 20%; top: -5px; display: block; font: 1rem 'Fira Sans', sans-serif; font-size: 1em;">Select original Signature</label>
+    <input type="file" id="origImag" onchange="readURL(this,'image1');" id="myFile" name="p" style="position: relative; left:20%">
+    <input type="submit" onClick="return validateAndSubmit('origImag','image1','testImag','image2');" value="Verify Signature" style="position: absolute; left: 44%; top: 300%; width: 15em; height: 8em;">
+    <label for="testImag" style="position:absolute; left: 70%; top: -5px; display: block; font: 1rem 'Fira Sans', sans-serif; font-size: 1em;">Select Test Signature</label>
+    <input type="file" id="testImag" onchange="readURL(this,'image2');" id="myFile2" name="q" style="position: relative; left: 53%" >
+    <script>
+      function validateAndSubmit(idnum1,imagenum1,idnum2,imagenum2){
+        if(document.getElementById(idnum1).files[0]!==undefined && document.getElementById(idnum2).files[0]!==undefined){
+          var x = document.getElementById(idnum1).files[0].name;
+          document.getElementById(imagenum1).innerHTML = x;
           console.log(x);
-          //x.disabled = true;
         }
-      </script>
+        else if(document.getElementById(idnum1).files[0]===undefined && document.getElementById(idnum2).files[0]===undefined){
+          alert("Please select two images.");
+          window.location.replace("#");
+          return false;
+        }
+        else if(document.getElementById(idnum1).files[0]===undefined){
+            alert("Please select the first image.");
+            window.location.replace("#");
+            return false;
+        }
+        else{
+          alert("Please select the second image.");
+          window.location.replace("#");
+          return false;
+        }
+    }
+      function readURL(input,image) {
+              if (input.files && input.files[0]) {
+                  var reader = new FileReader();
 
-     </form>
-    </div>
+                  reader.onload = function (e) {
+                    console.log(e);
+                    console.log(image);
+                      $('#'+image)
+                          .attr('src', e.target.result)
+                          .width(300)
+                          .height(150);
+                  };
+
+                  reader.readAsDataURL(input.files[0]);
+              }
+          }
+
+    </script>
+
+   </form>
 
    <!--div class="element">
      <form action="{% url 'imageSubmit' %}" method="get"-->

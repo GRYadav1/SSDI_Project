@@ -112,6 +112,7 @@ def imageSubmit(request):
     print("Hi imageSubmit")
     if 'q' in request.GET:
         pathString1=os.path.join(os.path.abspath(pathOrig),request.GET['p'])
+        print("-------->"+request.GET['p'])
         pathString2= os.path.join(os.path.abspath(pathForg),request.GET['q'])
         #print("Print Paths:\n",pathString1,pathString2);
         #global clf
