@@ -117,14 +117,22 @@ def imageSubmit(request):
             if request.GET['q'] in i[2]:
                 p2 = str(i[0])
 
-        pathString1=os.path.join(os.path.abspath(p1),request.GET['p'])
+        try:
+            pathString1=os.path.join(os.path.abspath(p1),request.GET['p'])
+        except UnboundLocalError:
+            template=loader.get_template('polls/invalid.html')
+            return HttpResponse(template.render({}, request))
         if os.path.exists(pathString1):
             print("Selected image 1 path is valid.")
         else:
             print("Selected image 1 path is invalid.")
             template=loader.get_template('polls/invalid.html')
             return HttpResponse(template.render({}, request))
-        pathString2= os.path.join(os.path.abspath(p2),request.GET['q'])
+        try:
+            pathString2= os.path.join(os.path.abspath(p2),request.GET['q'])
+        except UnboundLocalError:
+            template=loader.get_template('polls/invalid.html')
+            return HttpResponse(template.render({}, request))
         if os.path.exists(pathString2):
             print("Selected image 2 path is valid.")
         else:
