@@ -23,6 +23,8 @@ from keras import backend as K
 pathOrig ="data/test/050/"
 pathForg= "data/test/050_forg/"
 
+pathOrigi ="data/test/"
+
 input_img = Input(shape=(28, 28, 1))  # adapt this if using `channels_first` image data format
 
 print("First imput_image:",input_img.shape)
@@ -108,14 +110,21 @@ def index(request):
 
 def imageSubmit(request):
     if 'q' in request.GET:
-        pathString1=os.path.join(os.path.abspath(pathOrig),request.GET['p'])
+        for i in os.walk(os.path.abspath(pathOrigi)):
+            if request.GET['p'] in i[2]:
+                p1 = str(i[0])
+        for i in os.walk(os.path.abspath(pathOrigi)):
+            if request.GET['q'] in i[2]:
+                p2 = str(i[0])
+
+        pathString1=os.path.join(os.path.abspath(p1),request.GET['p'])
         if os.path.exists(pathString1):
             print("Selected image 1 path is valid.")
         else:
             print("Selected image 1 path is invalid.")
             template=loader.get_template('polls/invalid.html')
             return HttpResponse(template.render({}, request))
-        pathString2= os.path.join(os.path.abspath(pathForg),request.GET['q'])
+        pathString2= os.path.join(os.path.abspath(p2),request.GET['q'])
         if os.path.exists(pathString2):
             print("Selected image 2 path is valid.")
         else:
